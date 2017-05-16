@@ -12,6 +12,6 @@
 
 <div class="row">
     <painel-fotos ng-repeat='foto in fotos | filter: {titulo: filtro}' titulo='{{foto.titulo}}' class="col-sm-2 lista-animada">
-        <img class="img-responsive center-block" src="{{foto.url}}" alt="{{foto.titulo}}">
+        <minha-foto url='{{foto.url}}' titulo='{{foto.titulo}}'></minha-foto>
     </painel-fotos><!-- fim panel panel-default -->
 </div>
