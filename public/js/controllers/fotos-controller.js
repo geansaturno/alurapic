@@ -1,7 +1,12 @@
-angular.module('alurapic').controller('FotosController', function($scope){
+angular.module('alurapic').controller('FotosController', function($scope, $http){
 
-    $scope.foto = {
-        url: 'https://i0.wp.com/spacenews.com.br/wp-content/uploads/2015/11/maxresdefault.jpg?resize=696%2C435',
-        title: 'Leãozinho'
-    }
-})
+    $scope.fotos = [];
+
+    $http.get('/v1/fotos')
+    .success(function(fotos){
+        $scope.fotos = fotos;
+    })
+    .error(function(error){
+        console.log(error);
+    });
+});
