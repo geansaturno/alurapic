@@ -3,13 +3,18 @@ angular.module('alurapic', ['directivasAlurapic', 'ngAnimate', 'ngRoute'])
 
     $locationProvider.html5Mode(true);
 
+    $routeProvider.when('/', {
+        redirectTo: '/fotos'
+    });
+
     $routeProvider.when('/fotos', {
-        templateUrl : 'parciais/principal.html',
+        templateUrl : 'parciais/fotos.html',
         controller: 'FotosController'
     });
 
-    $routeProvider.when('/', {
-        redirectTo: '/fotos'
+    $routeProvider.when('/foto/:fotoId', {
+        templateUrl: "parciais/new.html",
+        controller: 'FotoController'
     });
 
     $routeProvider.when('/fotos/new', {
