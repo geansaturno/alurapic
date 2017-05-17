@@ -5,12 +5,15 @@
 <div class="row">
     <div class="col-sm-12">
         <form class="" action="" method="post">
-            <input type="text" name="filtro" value="" placeholder="Ex: futebol" ng-model="filtro" class="form-control" ng-model-options='{debounce: 500}'>
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <a class="btn btn-primary" href="/fotos/new">Nova Foto</a>
+                </span>
+                <input type="text" name="filtro" value="" placeholder="Ex: futebol" ng-model="filtro" class="form-control" ng-model-options='{debounce: 500}'>
+            </div>
         </form>
     </div>
-</div>
 
-<div class="row">
     <painel-fotos ng-repeat='foto in fotos | filter: {titulo: filtro}' titulo='{{foto.titulo}}' class="col-sm-2 lista-animada">
         <minha-foto url='{{foto.url}}' titulo='{{foto.titulo}}'></minha-foto>
     </painel-fotos><!-- fim panel panel-default -->

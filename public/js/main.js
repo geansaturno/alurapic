@@ -13,7 +13,8 @@ angular.module('alurapic', ['directivasAlurapic', 'ngAnimate', 'ngRoute'])
     });
 
     $routeProvider.when('/fotos/new', {
-        template: "<h1 class='text-center'>Nova Imagem</h1>"
+        templateUrl: "parciais/new.html",
+        controller: 'FotoController'
     });
 
     $routeProvider.otherwise({
