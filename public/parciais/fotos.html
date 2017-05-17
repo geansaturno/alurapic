@@ -22,7 +22,7 @@
         <minha-foto url='{{foto.url}}' titulo='{{foto.titulo}}'></minha-foto>
         <div class="">
             <a href="/foto/{{foto._id}}" class="btn btn-primary btn-block">Editar</a>
-            <button type="button" name="button" ng-click='deletar(foto)' class="btn btn-danger btn-block">Deletar</button>
+            <btn-perigo acao='deletar(foto)' texto='Deletar'/></btn-perigo>
         </div>
     </painel-fotos><!-- fim panel panel-default -->
 </div>

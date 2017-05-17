@@ -13,12 +13,12 @@ angular.module('alurapic', ['directivasAlurapic', 'ngAnimate', 'ngRoute'])
     });
 
     $routeProvider.when('/foto/:fotoId', {
-        templateUrl: "parciais/new.html",
+        templateUrl: "parciais/foto.html",
         controller: 'FotoController'
     });
 
     $routeProvider.when('/fotos/new', {
-        templateUrl: "parciais/new.html",
+        templateUrl: "parciais/foto.html",
         controller: 'FotoController'
     });
 

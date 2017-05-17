@@ -26,4 +26,19 @@ angular.module('directivasAlurapic', [])
     ddo.templateUrl = 'js/diretivas/minha-foto.html';
 
     return ddo;
+})
+.directive('btnPerigo', function(){
+
+    var ddo = {};
+
+    ddo.restrict = 'E';
+    ddo.scope = {
+        texto: '@',
+        acao : '&'
+    };
+
+    ddo.templateUrl = 'js/diretivas/btn-perigo.html';
+
+    return ddo;
+
 });
