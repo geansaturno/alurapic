@@ -1,4 +1,4 @@
-angular.module('alurapic').controller('FotoController', function($scope, $http, $routeParams){
+angular.module('alurapic').controller('FotoController', function($scope, $http, $routeParams, recursoFoto ){
 
     $scope.foto = {};
     $scope.msg = '';
@@ -6,11 +6,9 @@ angular.module('alurapic').controller('FotoController', function($scope, $http, 
     var fotoId = $routeParams.fotoId;
 
     if(fotoId){
-        $http.get('/v1/fotos/' + fotoId)
-        .success(function(foto){
+        recursoFoto.get({fotoId: fotoId}, function(foto){
             $scope.foto = foto;
-        })
-        .error(function(error){
+        }, function(error) {
             console.log(error);
         });
     }
@@ -18,30 +16,29 @@ angular.module('alurapic').controller('FotoController', function($scope, $http, 
     $scope.salvar = function(){
 
         if(fotoId){
-            var foto = $scop.foto;
+            var foto = $scope.foto;
             delete foto._id;
-            $http.put('/v1/fotos/' + fotoId, $foto)
-            .success(function(){
+
+            recursoFoto.update({fotoId: fotoId}, $scope.foto, function(){
                 $scope.msg = $scope.foto.titulo + ' alterada com sucesso';
                 $scope.formulario.$submitted = false;
-            })
-            .error(function(error){
+            }, function(error){
                 console.log(error);
                 $scope.msg = 'Falha ao editar a imagem';
             });
-        }
 
-        if($scope.formulario.$valid){
-            $http.post('/v1/fotos', $scope.foto)
-            .success(function(){
-                $scope.foto = {};
-                $scope.formulario.$submitted = false;
-                $scope.msg = 'Nova imagem incluida com sucesso';
-            })
-            .error(function(erro){
-                console.log(erro);
-                $scope.msg = 'Falha na inclusão da imagem';
-            });
+        } else {
+            if($scope.formulario.$valid){
+                recursoFoto.save($scope.foto, function(){
+                    $scope.foto = {};
+                    $scope.formulario.$submitted = false;
+                    $scope.msg = 'Nova imagem incluida com sucesso';
+
+                }, function(error){
+                    console.log(erro);
+                    $scope.msg = 'Falha na inclusão da imagem';
+                });
+            }
         }
     };
 });
