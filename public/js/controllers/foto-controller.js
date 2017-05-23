@@ -1,44 +1,32 @@
-angular.module('alurapic').controller('FotoController', function($scope, $http, $routeParams, recursoFoto ){
+angular.module('alurapic')
+	.controller('FotoController', function($scope, salvarFoto, recursoFoto, $routeParams) {
 
-    $scope.foto = {};
-    $scope.msg = '';
+		$scope.foto = {};
+		$scope.mensagem = '';
 
-    var fotoId = $routeParams.fotoId;
+		if($routeParams.fotoId) {
+			recursoFoto.get({fotoId: $routeParams.fotoId}, function(foto) {
+				$scope.foto = foto;
+			}, function(erro) {
+				console.log(erro);
+				$scope.mensagem = 'Não foi possível obter a foto';
+			});
+		}
 
-    if(fotoId){
-        recursoFoto.get({fotoId: fotoId}, function(foto){
-            $scope.foto = foto;
-        }, function(error) {
-            console.log(error);
-        });
-    }
+        $scope.submeter = function() {
 
-    $scope.salvar = function(){
-
-        if(fotoId){
-            var foto = $scope.foto;
-            delete foto._id;
-
-            recursoFoto.update({fotoId: fotoId}, $scope.foto, function(){
-                $scope.msg = $scope.foto.titulo + ' alterada com sucesso';
-                $scope.formulario.$submitted = false;
-            }, function(error){
-                console.log(error);
-                $scope.msg = 'Falha ao editar a imagem';
-            });
-
-        } else {
             if($scope.formulario.$valid){
-                recursoFoto.save($scope.foto, function(){
-                    $scope.foto = {};
+                salvarFoto.salvar($scope.foto)
+                .then(function(dados){
+                    $scope.mensagem = dados.message;
                     $scope.formulario.$submitted = false;
-                    $scope.msg = 'Nova imagem incluida com sucesso';
-
-                }, function(error){
-                    console.log(erro);
-                    $scope.msg = 'Falha na inclusão da imagem';
+                    if(dados.wasCreated){
+                        $scope.foto = {};
+                    }
+                })
+                .catch(function(dados){
+                    $scope.mensagem = dados.message;
                 });
             }
-        }
-    };
-});
+        };
+	});
