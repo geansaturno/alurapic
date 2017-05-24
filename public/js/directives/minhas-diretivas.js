@@ -26,8 +26,8 @@ angular.module('minhasDiretivas', [])
             url: '@'
         };
 
-        ddo.template = '<img class="img-responsive center-block" src="{{url}}" alt="{{titulo}}">';           
-        
+        ddo.template = '<img class="img-responsive center-block" src="{{url}}" alt="{{titulo}}">';
+
         return ddo;
     })
     .directive('meuBotaoPerigo', function() {
@@ -36,8 +36,24 @@ angular.module('minhasDiretivas', [])
         ddo.scope = {
             nome: '@',
             acao : '&'
-        }
+        };
+
         ddo.template = '<button class="btn btn-danger btn-block" ng-click="acao()">{{nome}}</button>';
+
+        return ddo;
+    })
+    .directive('meuFoco', function(){
+
+        var ddo = {};
+
+        ddo.restrict = 'A';
+
+        ddo.link = function(scope, element){
+            scope.$on('fotoSalva', function(){
+                element[0].focus();
+            });
+        };
+
 
         return ddo;
     });

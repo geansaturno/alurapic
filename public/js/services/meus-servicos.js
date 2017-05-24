@@ -7,13 +7,17 @@ angular.module('meusServicos', ['ngResource'])
 			}
 		});
 	})
-    .factory('salvarFoto', function(recursoFoto, $q){
+    .factory('salvarFoto', function(recursoFoto, $q, $rootScope){
         var service = {};
+
+        var eventSave = 'fotoSalva';
+
         service.salvar = function(foto){
             return $q(function(resolve, reject){
 
                 if(foto._id){
                     recursoFoto.update({fotoId: foto._id}, foto, function(){
+                        $rootScope.$broadcast(eventSave);
                         resolve({
                             message: foto.titulo + ' alterada com sucesso',
                             wasCreated: false
@@ -27,6 +31,7 @@ angular.module('meusServicos', ['ngResource'])
 
                 } else {
                     recursoFoto.save(foto, function(){
+                        $rootScope.$broadcast(eventSave);
                         resolve({
                             message: 'Nova imagem incluida com sucesso',
                             wasCreated: true
